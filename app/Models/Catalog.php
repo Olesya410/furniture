@@ -16,7 +16,6 @@ class Catalog extends Model
         return $this->hasMany(Product::class);
     }
 
-    // app/Models/Product.php
     public function catalog()
     {
         return $this->belongsTo(Catalog::class);
