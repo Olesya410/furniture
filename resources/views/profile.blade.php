@@ -5,7 +5,6 @@
 @section('content')
 <div class="profil" style="margin-top: 9px;">
     <div class="photo-user">
-        <!-- Тут будет отображаться выбранное фото -->
         <img id="main-profile-photo" src="{{ asset('storage/photos/user1.jpg') }}" alt="Фото профиля" style="height:100%; width:300px;">
     </div>
     <h1>Добро пожаловать, {{ $user->name }}!</h1>
@@ -16,7 +15,7 @@
     </form>
     <div class="photo-profile">
         <h2 style="margin-top: 20px; margin-bottom:20px;">Фото профиля</h2>
-        <!-- Клики по фото -->
+        
         <div class="photos-selection" >
             <img src="{{ asset('storage/photos/user1.jpg') }}" alt="Фото 1" style="height:100%; width:90px; border: 3px solid black; cursor:pointer;" class="select-photo" data-src="{{ asset('storage/photos/user1.jpg') }}">
             <img src="{{ asset('storage/photos/user2.jpg') }}" alt="Фото 2" style="height:100%; width:90px; border: 3px solid black; cursor:pointer;" class="select-photo" data-src="{{ asset('storage/photos/user2.jpg') }}">
@@ -26,10 +25,9 @@
         </div>
     </div>
 
-    <!-- Поле для хранения выбранного фото -->
+    
     <input type="hidden" name="profile_photo" id="profile-photo-input" value="{{ asset('storage/photos/user1.jpg') }}">
 
-    <!-- Форма для редактирования имени и email -->
     <form action="{{ route('profile.update') }}" method="POST" style="margin-top:20px;">
         @csrf
         @method('PUT')
@@ -45,17 +43,13 @@
     </form>
 
 
-<!-- Скрипт для выбора фото -->
+
 <script>
     document.querySelectorAll('.select-photo').forEach(img => {
         img.addEventListener('click', () => {
             const src = img.getAttribute('data-src');
-            // Обновляем главное фото
             document.getElementById('main-profile-photo').src = src;
-            // Записываем выбранное фото в скрытое поле
             document.getElementById('profile-photo-input').value = src;
-
-            // Обводка выбранного фото
             document.querySelectorAll('.select-photo').forEach(i => i.style.border = '3px solid black');
             img.style.border = '3px solid red';
         });
