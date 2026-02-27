@@ -17,14 +17,11 @@ class OrderItem extends Model
         'address',
     ];
 
-    // Связь с заказом
     public function order()
     {
         return $this->belongsTo(Order::class);
     }
 
-    // Связь с продуктом
-    // В модели OrderItem.php
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');
