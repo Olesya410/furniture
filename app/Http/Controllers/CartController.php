@@ -17,7 +17,6 @@ class CartController extends Controller
             return redirect()->route('auth.login');
         }
 
-        // Получаем все товары в корзине пользователя
         $cartItems = CartItem::with('product')->where('user_id', $user->id)->get();
 
         $productsInCart = [];
@@ -42,16 +41,13 @@ class CartController extends Controller
             return redirect()->route('auth.login');
         }
 
-        // Проверяем, есть ли уже товар в корзине пользователя
         $cartItem = CartItem::where('user_id', $user->id)
             ->where('product_id', $productId)
             ->first();
 
         if ($cartItem) {
-            // Увеличиваем количество
             $cartItem->increment('quantity');
         } else {
-            // Создаем новую запись
             CartItem::create([
                 'user_id' => $user->id,
                 'product_id' => $productId,
