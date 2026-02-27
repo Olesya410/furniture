@@ -14,13 +14,11 @@ class ProductCatalog extends Model
         'catalog_id',
     ];
 
-    // Связь с каталогом
     public function catalog()
     {
         return $this->belongsTo(Catalog::class);
     }
 
-    // Связь с товарами, если есть
     public function products()
     {
         return $this->hasMany(Product::class, 'catalog_id');
