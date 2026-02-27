@@ -18,9 +18,6 @@ class OrderController extends Controller
 
     public function submit(Request $request)
     {
-
-        // dd('Метод submit вызван');
-        // Валидация данных
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email',
@@ -30,17 +27,14 @@ class OrderController extends Controller
             'selected_products.*' => 'exists:products,id',
         ]);
 
-        // Создаем заказ
         $order = Order::create([
             'user_id' => Auth::id(),
             'name' => $validated['name'],
             'email' => $validated['email'],
             'phone' => $validated['phone'],
             'address' => $validated['address'],
-            // добавьте другие поля по необходимости
         ]);
 
-        // Получаем выбранные товары из корзины
         $cartItems = CartItem::where('user_id', Auth::id())->with('product')->get();
 
         foreach ($cartItems as $item) {
@@ -54,7 +48,6 @@ class OrderController extends Controller
             }
         }
 
-        // Удаляем выбранные товары из корзины
         CartItem::where('user_id', Auth::id())
             ->whereIn('product_id', $validated['selected_products'])
             ->delete();
