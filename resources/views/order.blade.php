@@ -8,8 +8,7 @@
 
     <form action="{{ route('order.submit') }}" method="POST">
     @csrf
-
-    <!-- Поля для данных покупателя -->
+        
     <div class="mb-3">
         <label for="name" class="form-label">Имя</label>
         <input type="text" class="form-control" id="name" name="name" required>
@@ -27,7 +26,6 @@
         <input type="address" class="form-control" id="address" name="address" required>
     </div>
 
-    <!-- Передача выбранных товаров -->
     @foreach($cartItems as $item)
         <input type="hidden" name="selected_products[]" value="{{ $item->product_id }}">
     @endforeach
