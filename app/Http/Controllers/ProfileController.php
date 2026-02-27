@@ -13,7 +13,6 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         if ($request->input('action') === 'profile') {
-            // Обновление имени и email
             $request->validate([
                 'email' => 'required|email',
                 'name' => 'required|string|max:255',
@@ -23,8 +22,6 @@ class ProfileController extends Controller
             $user->save();
             return redirect()->back()->with('success', 'Профиль обновлен');
         }
-
-        // На всякий случай, если action не определен
         return redirect()->back()->with('error', 'Некорректное действие');
     }
 
