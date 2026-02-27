@@ -14,10 +14,8 @@ class RegisterController extends Controller
         return view('auth.register');
     }
 
-    // Обработка регистрации
     public function register(Request $request)
     {
-        // Валидация данных
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -33,14 +31,12 @@ class RegisterController extends Controller
             'password.confirmed' => 'Пароли не совпадают.',
         ]);
 
-        // Создание пользователя
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        // Перенаправление после регистрации
         return redirect('/register')->with('success', 'Вы успешно зарегистрировались!');
     }
 }
