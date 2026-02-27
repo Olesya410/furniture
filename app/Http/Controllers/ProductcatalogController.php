@@ -20,10 +20,9 @@ class ProductcatalogController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
-            'photo' => 'required|image|max:2048', // максимум 2MB
+            'photo' => 'required|image|max:2048', 
         ]);
 
-        // Обработка загрузки файла
         if ($request->hasFile('photo')) {
             $path = $request->file('photo')->store('public/photos');
             $filename = basename($path);
@@ -31,12 +30,11 @@ class ProductcatalogController extends Controller
             $filename = null;
         }
 
-        // Создаем продукт, передавая путь к изображению
         Product::create([
             'name' => $validatedData['name'],
             'description' => $validatedData['description'],
             'price' => $validatedData['price'],
-            'img' => $filename, // убедитесь, что в модели fillable есть 'img'
+            'img' => $filename,
         ]);
 
         return redirect()->back()->with('success', 'Товар успешно добавлен');
