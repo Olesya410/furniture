@@ -23,18 +23,15 @@ class Product extends Model
         'product_id', 
     ];
 
-    // Связь с каталогом
     public function catalog()
     {
         return $this->belongsTo(ProductCatalog::class);
     }
 
-    // Связь с корзиной (многие ко многим)
     public function baskets()
     {
         return $this->belongsToMany(Basket::class)->withPivot('quantity');
     }
 
-    // В модели Product.php
 
 }
