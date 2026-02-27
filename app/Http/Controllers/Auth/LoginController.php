@@ -29,19 +29,16 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        // Валидация данных
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        // Попытка входа
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
             $user = Auth::user();
 
-            // Проверка роли
             if ($user->role_id == 2) {
                 return redirect()->intended('/admin');
             }
@@ -60,6 +57,6 @@ class LoginController extends Controller
         $request->session()->invalidate(); 
         $request->session()->regenerateToken(); 
 
-        return redirect('/login'); // Перенаправление на страницу входа
+        return redirect('/login'); 
     }
 }
